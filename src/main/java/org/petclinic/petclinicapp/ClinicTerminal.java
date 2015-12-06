@@ -11,8 +11,6 @@ import java.io.InputStreamReader;
 
 public class ClinicTerminal {
 
-    String CONTAINS_NO_NUMBERS_REGEXP = "\\D+";
-
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     Clinic myClinic = new Clinic();
 
@@ -39,7 +37,7 @@ public class ClinicTerminal {
                         delete(myClinic);
                         break;
                     case 5:
-                        myClinic.table();
+                        myClinic.clientList();
                         break;
                     default:
                         System.out.println("Введите корректную команду");
@@ -54,20 +52,6 @@ public class ClinicTerminal {
 
 }
 
-    private void wrongInput(String inputString) throws IOException, WrongInputException {
-        String outputString = inputString;
-        while (true) {
-            if (outputString.matches(CONTAINS_NO_NUMBERS_REGEXP)) {
-                break;
-            } else {
-                System.out.println("Ввод содержит цифры. Введите корректное имя (Пример: Василий)");
-                throw new WrongInputException("Неправильно введены цифры");
-            }
-        }
-    }
-
-
-
     private void add(Clinic myClinic) throws IOException, WrongInputException {
         int id;
         String clientName;
@@ -76,9 +60,6 @@ public class ClinicTerminal {
         id = Integer.parseInt(reader.readLine());
         System.out.println("Введите имя клиента");
         clientName = reader.readLine();
-        if (!clientName.matches(CONTAINS_NO_NUMBERS_REGEXP)) {
-            throw new WrongInputException("Ввод содержит цифры. Введите корректное имя (Пример: Василий)");
-        }
         System.out.println("Введите имя питомца");
         petName = reader.readLine();
         System.out.println("Кот/Собака");
@@ -110,12 +91,20 @@ public class ClinicTerminal {
                 if (num == 1) {
                     System.out.println("Введите имя питомца");
                     petName = reader.readLine();
-                    System.out.println("Найдено: " + myClinic.findClientsByPetName(petName));
+                    try {
+                        System.out.println("Найдено: " + myClinic.findClientsByPetName(petName));
+                    } catch (WrongInputException e) {
+                        e.getMessage();
+                    }
                     break;
                 } else if (num == 2) {
                     System.out.println("Введите имя клиента");
                     clientName = reader.readLine();
-                    System.out.println("Найдено: " +  myClinic.findByClientName(clientName));
+                    try {
+                        System.out.println("Найдено: " +  myClinic.findByClientName(clientName));
+                    } catch (WrongInputException e) {
+                        e.getMessage();
+                    }
                     break;
                 } else {
                     System.out.println("Введите корректную команду");
@@ -137,7 +126,11 @@ public class ClinicTerminal {
                     int idSearch = Integer.parseInt(reader.readLine());
                     System.out.println("Введите новое имя питомца");
                     String petNameSearch = reader.readLine();
-                    myClinic.changePetName(idSearch, petNameSearch);
+                    try {
+                        myClinic.changePetName(idSearch, petNameSearch);
+                    } catch (WrongInputException e) {
+                        e.getMessage();
+                    }
                     System.out.println("Имя питомца изменено");
                     break;
                 } else if (numSearch == 2) {
@@ -145,7 +138,11 @@ public class ClinicTerminal {
                     int idSearch = Integer.parseInt(reader.readLine());
                     System.out.println("Введите новое имя клиента");
                     String petNameSearch = reader.readLine();
-                    myClinic.changeClientName(idSearch, petNameSearch);
+                    try {
+                        myClinic.changeClientName(idSearch, petNameSearch);
+                    } catch (WrongInputException e) {
+                        e.getMessage();
+                    }
                     System.out.println("Имя клиента изменено");
                     break;
                 } else {

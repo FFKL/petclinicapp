@@ -21,7 +21,7 @@ public class ClientTest {
 
     @Test
     public void testToString() throws Exception {
-        assertEquals("ID клиента: 1 Имя клиента: Вася Имя питомца: Рекс", client.toString());
+        assertEquals("ID клиента: 1; Имя клиента: Вася; Имя питомца: Рекс", client.toString());
     }
 
     @Test

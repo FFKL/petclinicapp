@@ -52,10 +52,16 @@ public class Client {
 
     /**
      * Переопределение метода toString()
-     * @return строка вида ID клиента + id + Имя клиента + clientName + Имя питомца + petName
+     * @return строка вида ID клиента + id + Имя клиента + clientName + Имя питомца + petName.
+     * В случае отсутствия питомца вместо имени питомца выводит строку "!Питомец отсутствует!"
      */
     @Override
     public String toString() {
-        return "ID клиента: " + this.id + " Имя клиента: " + this.clientName + " Имя питомца: " + this.pet.getName();
+        String petName;
+        if (this.pet == null)
+            petName = "!Питомец отсутствует!";
+        else
+            petName = "; Имя питомца: " +  this.pet.getName();
+        return "ID клиента: " + this.id + "; Имя клиента: " + this.clientName  + petName;
     }
 }
