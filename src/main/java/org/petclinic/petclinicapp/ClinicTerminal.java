@@ -16,7 +16,7 @@ public class ClinicTerminal {
 
     public void mainMenu() throws IOException, InterruptedException {
         while (true) {
-            System.out.println("Вас приветствует Клиника для животных! Выберите действие (1 - Добавление; 2 - Поиск; 3 - Редактирование; 4 - Удаление; 5 - Показать всех клиентов");
+            System.out.println("Вас приветствует Клиника для животных! Выберите действие 1 - Добавление; 2 - Поиск; 3 - Редактирование; 4 - Удаление; 5 - Показать всех клиентов");
             try {
                 int action = Integer.parseInt(reader.readLine());
                 switch (action) {
@@ -45,7 +45,6 @@ public class ClinicTerminal {
                 }
             }
             catch (NumberFormatException e) {
-                Thread.sleep(20); //задержка добавлена для того, чтобы цикл не срабатывал несколько раз после остановки процесса
                 System.out.println("Введите цифру!");
             }
         }
@@ -62,18 +61,18 @@ public class ClinicTerminal {
         clientName = reader.readLine();
         System.out.println("Введите имя питомца");
         petName = reader.readLine();
-        System.out.println("Кот/Собака");
+        System.out.println("Cat/Dog");
         Pet pet;
         while (true) {
             String petType = reader.readLine();
-            if (petType.equals("Кот")) {
+            if (petType.equals("Cat")) {
                 pet = new Cat(petName);
                 break;
-            } else if (petType.equals("Собака")) {
+            } else if (petType.equals("Dog")) {
                 pet = new Dog(petName);
                 break;
             } else {
-                System.out.println("Введите корректный тип питомца: Кот/Собака");
+                System.out.println("Введите корректный тип питомца: Cat/Dog");
             }
         }
         myClinic.addClient(new Client(id, clientName, pet));
