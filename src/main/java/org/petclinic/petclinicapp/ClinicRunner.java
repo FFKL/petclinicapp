@@ -1,8 +1,10 @@
 package org.petclinic.petclinicapp;
 
+import org.petclinic.petclinicapp.Exceptions.IDException;
+import org.petclinic.petclinicapp.Exceptions.PetTypeException;
 import org.petclinic.petclinicapp.Exceptions.WrongInputException;
 import org.petclinic.petclinicapp.Pets.Cat;
-import org.petclinic.petclinicapp.Pets.Dog;
+import org.petclinic.petclinicapp.Pets.Pet;
 
 import java.io.IOException;
 
@@ -13,14 +15,22 @@ public class ClinicRunner {
 
 
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
         ClinicTerminal terminal = new ClinicTerminal();
+        Client c = new Client(22, "Ivan", new Cat("Hren"));
+        Client g = new Client(22, "Ivan", new Cat("Hren"));
+        System.out.println(c.equals(g));
+        System.out.println(c.getPet().equals(g.getPet()));
 
         try {
-            terminal.myClinic.addClient(new Client(1, "Vasiliy Pupkin", new Dog("Racks")));
-            terminal.myClinic.addClient(new Client(2, "Julia Korosteleva", new Cat("Pushok")));
-            terminal.myClinic.addClient(new Client(3, "Dmitriy Pupkin", new Cat("Hren")));
+            terminal.myClinic.addClient(1, "Vasiliy Pupkin", "Dog", "Racks");
+            terminal.myClinic.addClient(2, "Julia Korosteleva", "Cat", "Pushok");
+            terminal.myClinic.addClient(3, "Dmitriy Pupkin", "Cat", "Hren");
         } catch (WrongInputException e) {
+            e.printStackTrace();
+        } catch (IDException e) {
+            e.printStackTrace();
+        } catch (PetTypeException e) {
             e.printStackTrace();
         }
         terminal.mainMenu();

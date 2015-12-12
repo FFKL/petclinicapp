@@ -28,7 +28,22 @@ public class Cat implements Pet {
      * Звук, издаваемый питомцем
      */
     @Override
-    public void makeSound() {
-        System.out.println("Meov-Meov");
+    public String makeSound() {
+        return "Meow-Meow";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Pet e = (Pet) obj;
+        return (this.getName() == e.getName() && this.getClass() == e.getClass());
     }
 }

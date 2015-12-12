@@ -1,6 +1,11 @@
 package org.petclinic.petclinicapp;
 
+import org.petclinic.petclinicapp.Exceptions.IDException;
+import org.petclinic.petclinicapp.Exceptions.PetTypeException;
 import org.petclinic.petclinicapp.Exceptions.WrongInputException;
+import org.petclinic.petclinicapp.Pets.Cat;
+import org.petclinic.petclinicapp.Pets.Dog;
+import org.petclinic.petclinicapp.Pets.Pet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +16,10 @@ import java.util.List;
 public class Clinic {
     private final List<Client> clients;
 
-    String CONTAINS_NO_NUMBERS_REGEXP = "\\D+";
-    String WRONG_INPUT_EXCEPTION_MESSAGE = "Ввод содержит цифры. Введите корректное имя (Пример: Василий)";
+    final String CONTAINS_NO_NUMBERS_REGEXP = "\\D+";
+    final String ID_EXCEPTION_MESSAGE = "Введенный ID существует. Введите другой.";
+    final String WRONG_INPUT_EXCEPTION_MESSAGE = "Ввод имени содержит цифры. Введите корректное имя (Пример: Василий)";
+    final String PET_TYPE_EXCEPTION_MESSAGE = "Такого питомца не существует.";
     /**
      * Конструктор
      */
@@ -21,15 +28,28 @@ public class Clinic {
     }
     /**
      * Добавление клиента
-     * @param client Клиент
+     * @param id Клиент
      * @throws WrongInputException, если имя клиента или имя питомца содержат цифры
+     * @throws IDException, если существует клиент с введенным ID
      */
-    public void  addClient(final Client client) throws WrongInputException {
-        if (!client.getClientName().matches(CONTAINS_NO_NUMBERS_REGEXP) || !client.getPet().getName().matches(CONTAINS_NO_NUMBERS_REGEXP)) {
+    public void addClient(final int id, String clientName, String petType, String petName) throws WrongInputException, IDException, PetTypeException {
+        Pet pet = null;
+        for (Client c : this.clients) {
+            if (id == c.getId())
+                throw new IDException(ID_EXCEPTION_MESSAGE);
+        }
+        if (!clientName.matches(CONTAINS_NO_NUMBERS_REGEXP) || !petName.matches(CONTAINS_NO_NUMBERS_REGEXP)) {
             throw new WrongInputException(WRONG_INPUT_EXCEPTION_MESSAGE);
         }
+        else if (!petType.equals("Cat") && !petType.equals("Dog")) {
+            throw new PetTypeException(PET_TYPE_EXCEPTION_MESSAGE);
+        }
         else {
-            this.clients.add(client);
+            if (petType.equals("Dog"))
+                pet = new Dog(petName);
+            else if (petType.equals("Cat"))
+                pet = new Cat(petName);
+            this.clients.add(new Client(id, clientName, pet));
         }
     }
 

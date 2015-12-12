@@ -8,6 +8,6 @@ public interface Pet {
 
     public void setName(String name);
 
-    public void makeSound();
+    public String makeSound();
 
 }

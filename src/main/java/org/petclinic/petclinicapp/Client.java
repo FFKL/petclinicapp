@@ -64,4 +64,19 @@ public class Client {
             petName = "; Имя питомца: " +  this.pet.getName();
         return "ID клиента: " + this.id + "; Имя клиента: " + this.clientName  + petName;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Client e = (Client) obj;
+        return (this.getId() == e.getId() && this.getClientName() == e.getClientName() && this.getPet().equals(e.getPet()));
+    }
 }

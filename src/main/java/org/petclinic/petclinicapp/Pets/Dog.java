@@ -19,7 +19,22 @@ public class Dog implements Pet {
     }
 
     @Override
-    public void makeSound() {
-        System.out.println("Gav-Gav");
+    public String makeSound() {
+        return "Gav-Gav";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Pet e = (Pet) obj;
+        return (this.getName() == e.getName() && this.getClass() == e.getClass());
     }
 }

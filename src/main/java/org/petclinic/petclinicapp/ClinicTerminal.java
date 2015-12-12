@@ -1,9 +1,8 @@
 package org.petclinic.petclinicapp;
 
+import org.petclinic.petclinicapp.Exceptions.IDException;
+import org.petclinic.petclinicapp.Exceptions.PetTypeException;
 import org.petclinic.petclinicapp.Exceptions.WrongInputException;
-import org.petclinic.petclinicapp.Pets.Cat;
-import org.petclinic.petclinicapp.Pets.Dog;
-import org.petclinic.petclinicapp.Pets.Pet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,18 +13,14 @@ public class ClinicTerminal {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     Clinic myClinic = new Clinic();
 
-    public void mainMenu() throws IOException, InterruptedException {
+    public void mainMenu() throws IOException {
         while (true) {
             System.out.println("Вас приветствует Клиника для животных! Выберите действие 1 - Добавление; 2 - Поиск; 3 - Редактирование; 4 - Удаление; 5 - Показать всех клиентов");
             try {
                 int action = Integer.parseInt(reader.readLine());
                 switch (action) {
                     case 1:
-                        try {
-                            add(myClinic);
-                        } catch (WrongInputException e) {
-                            System.out.println(e.getMessage());
-                        }
+                        add(myClinic);
                         break;
                     case 2:
                         search(myClinic);
@@ -51,10 +46,11 @@ public class ClinicTerminal {
 
 }
 
-    private void add(Clinic myClinic) throws IOException, WrongInputException {
+    private void add(Clinic myClinic) throws IOException {
         int id;
         String clientName;
         String petName;
+        String petType;
         System.out.println("Введите ID клиента");
         id = Integer.parseInt(reader.readLine());
         System.out.println("Введите имя клиента");
@@ -62,21 +58,17 @@ public class ClinicTerminal {
         System.out.println("Введите имя питомца");
         petName = reader.readLine();
         System.out.println("Cat/Dog");
-        Pet pet;
-        while (true) {
-            String petType = reader.readLine();
-            if (petType.equals("Cat")) {
-                pet = new Cat(petName);
-                break;
-            } else if (petType.equals("Dog")) {
-                pet = new Dog(petName);
-                break;
-            } else {
-                System.out.println("Введите корректный тип питомца: Cat/Dog");
-            }
+        petType = reader.readLine();
+        try {
+            myClinic.addClient(id, clientName, petType, petName);
+            System.out.println("Клиент добавлен!");
+        } catch (IDException e) {
+            System.out.println(e.getMessage());
+        } catch (WrongInputException e) {
+            System.out.println(e.getMessage());
+        } catch (PetTypeException e) {
+            System.out.println(e.getMessage());
         }
-        myClinic.addClient(new Client(id, clientName, pet));
-        System.out.println("Клиент добавлен!");
     }
 
     private void search(Clinic myClinic) throws IOException {
