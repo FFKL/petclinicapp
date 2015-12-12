@@ -47,18 +47,14 @@ public class ClinicTerminal {
 }
 
     private void add(Clinic myClinic) throws IOException {
-        int id;
-        String clientName;
-        String petName;
-        String petType;
         System.out.println("Введите ID клиента");
-        id = Integer.parseInt(reader.readLine());
+        int id = Integer.parseInt(reader.readLine());
         System.out.println("Введите имя клиента");
-        clientName = reader.readLine();
+        String clientName = reader.readLine();
         System.out.println("Введите имя питомца");
-        petName = reader.readLine();
+        String petName = reader.readLine();
         System.out.println("Cat/Dog");
-        petType = reader.readLine();
+        String petType = reader.readLine();
         try {
             myClinic.addClient(id, clientName, petType, petName);
             System.out.println("Клиент добавлен!");

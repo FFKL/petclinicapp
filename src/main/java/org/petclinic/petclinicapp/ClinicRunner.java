@@ -19,8 +19,6 @@ public class ClinicRunner {
         ClinicTerminal terminal = new ClinicTerminal();
         Client c = new Client(22, "Ivan", new Cat("Hren"));
         Client g = new Client(22, "Ivan", new Cat("Hren"));
-        System.out.println(c.equals(g));
-        System.out.println(c.getPet().equals(g.getPet()));
 
         try {
             terminal.myClinic.addClient(1, "Vasiliy Pupkin", "Dog", "Racks");

@@ -28,9 +28,13 @@ public class Clinic {
     }
     /**
      * Добавление клиента
-     * @param id Клиент
+     * @param id ID клиента
+     * @param clientName Имя клиента
+     * @param petType Тип питомца
+     * @param petName Имя питомца
      * @throws WrongInputException, если имя клиента или имя питомца содержат цифры
      * @throws IDException, если существует клиент с введенным ID
+     * @throws PetTypeException, если введет несуществующий тип питомца
      */
     public void addClient(final int id, String clientName, String petType, String petName) throws WrongInputException, IDException, PetTypeException {
         Pet pet = null;
