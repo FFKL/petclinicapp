@@ -16,17 +16,27 @@ public class ClinicTerminal {
 
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     Clinic myClinic = new Clinic();
-
+    /**
+     * Константа, хранящая основное меню для вывода в консоль
+     */
     final String MENU = "Вас приветствует Клиника для животных! Выберите действие 1 - Добавление; 2 - Поиск; 3 - Редактирование; 4 - Удаление; 5 - Показать всех клиентов";
-
+    /**
+     * Константы, хранящие сообщения об ошибках для вывода в консоль
+     */
     private final String ENTER_CORRECT_COMMAND = "Введите корректную команду";
     private final String ENTER_NUM = "Введите цифру";
-
+    /**
+     * Переменные для объектов добавления, поиска, изменения и удаления
+     */
     TerminalAdd add;
     TerminalSearch search;
     TerminalEdit edit;
     TerminalDel del;
 
+    /**
+     * Конструктор
+     * @throws IOException
+     */
     public ClinicTerminal() throws IOException {
         this.add = new TerminalAdd(reader, myClinic);
         this.search = new TerminalSearch(reader, myClinic);
@@ -34,6 +44,10 @@ public class ClinicTerminal {
         this.del = new TerminalDel(reader, myClinic);
     }
 
+    /**
+     * Основное меню
+     * @throws IOException
+     */
     public void mainMenu() throws IOException {
         while (true) {
             System.out.println(MENU);

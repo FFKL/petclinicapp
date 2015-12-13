@@ -6,6 +6,9 @@ import org.petclinic.petclinicapp.Pets.Pet;
  * Клиент
  */
 public class Client {
+    /**
+     * Переменные, хранящие ID клиента, имя клиента и питомца;
+     */
     private int id = 0;
     private String clientName;
     private Pet pet;
@@ -38,7 +41,6 @@ public class Client {
     /**
      * Получение имени клиента
      */
-
     public String getClientName(){
         return this.clientName;
     }
@@ -65,6 +67,11 @@ public class Client {
         return "ID клиента: " + this.id + "; Имя клиента: " + this.clientName  + petName;
     }
 
+    /**
+     * Переопределение метода equals()
+     * @param obj объект для сравнения
+     * @return результат сравнения двух объектов в boolean виде
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

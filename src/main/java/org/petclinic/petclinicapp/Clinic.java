@@ -14,9 +14,15 @@ import java.util.List;
  * Класс описывает клинику.
  */
 public class Clinic {
-    private final List<Client> clients;
 
+    private final List<Client> clients;
+    /**
+     * Константа для регулярного выражения
+     */
     final String CONTAINS_NO_NUMBERS_REGEXP = "\\D+";
+    /**
+     * Константы для сообщений в исключениях
+     */
     final String ID_EXCEPTION_MESSAGE = "Введенный ID существует. Введите другой.";
     final String WRONG_INPUT_EXCEPTION_MESSAGE = "Ввод имени содержит цифры. Введите корректное имя (Пример: Василий)";
     final String PET_TYPE_EXCEPTION_MESSAGE = "Такого питомца не существует.";
@@ -101,6 +107,7 @@ public class Clinic {
      * @param id ID клиента
      * @param clientName имя клиента
      * @throws WrongInputException, если имя клиента содержит цифры
+     * @throws IDException, если существует клиент с введенным ID
      */
     public void changeClientName(int id, String clientName) throws WrongInputException, IDException {
         if (!clientName.matches(CONTAINS_NO_NUMBERS_REGEXP)) {
@@ -121,6 +128,7 @@ public class Clinic {
      * @param id ID клиента
      * @param petName имя питомца
      * @throws WrongInputException, если имя питомца содержит цифры
+     * @throws IDException, если существует клиент с введенным ID
      */
     public void changePetName(int id, String petName) throws WrongInputException, IDException {
         if (!petName.matches(CONTAINS_NO_NUMBERS_REGEXP)) {
@@ -139,6 +147,7 @@ public class Clinic {
     /**
      * Удаление клиента
      * @param id ID клиента
+     * @throws IDException, если существует клиент с введенным ID
      */
     public void removeClient(int id) throws IDException {
         for (int i = 0; i < clients.size(); i++){
@@ -153,6 +162,7 @@ public class Clinic {
     /**
      * Удаление питомца
      * @param id ID килента
+     * @throws IDException, если существует клиент с введенным ID
      */
     public void removePet(int id) throws IDException {
         for (int i = 0; i < clients.size(); i++){

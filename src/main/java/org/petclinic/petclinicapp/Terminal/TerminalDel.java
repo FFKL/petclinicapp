@@ -10,21 +10,37 @@ public class TerminalDel {
 
     BufferedReader reader;
     Clinic myClinic;
-
+    /**
+     * Константа, хранящая основное меню удаления
+     */
     private final String DEL_MENU = "Удаление. (Введите цифру) Удалить: 1 - питомца, 2 - клиента";
-
+    /**
+     * Константы, хранящие сообщения ввода для вывода в консоль
+     */
     private final String ENTER_ID = "Введите ID клиента";
     private final String ENTER_CORRECT_COMMAND = "Введите корректную команду";
     private final String ENTER_NUM = "Введите цифру";
-
+    /**
+     * Константы, хранящие результат операции удаления для вывода в консоль
+     */
     private final String PET_DEL = "Питомец удален";
     private final String CLIENT_DEL = "Клиент удален";
 
+    /**
+     * Конструктор
+     * @param reader чтение консольного ввода
+     * @param myClinic объект клиники
+     * @throws IOException
+     */
     public TerminalDel(BufferedReader reader, Clinic myClinic) throws IOException {
         this.reader = reader;
         this.myClinic = myClinic;
     }
 
+    /**
+     * запуск удаления
+     * @throws IOException
+     */
     public void start() throws IOException {
         try {
             System.out.println(DEL_MENU);
@@ -56,6 +72,12 @@ public class TerminalDel {
         }
     }
 
+    /**
+     * Ввод-вывод
+     * @param enter строка, отображающаяся в консоли
+     * @return ввод консоли
+     * @throws IOException
+     */
     private String io(String enter) throws IOException {
         System.out.println(enter);
         return reader.readLine();
