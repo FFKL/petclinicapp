@@ -102,7 +102,7 @@ public class Clinic {
      * @param clientName имя клиента
      * @throws WrongInputException, если имя клиента содержит цифры
      */
-    public void changeClientName(int id, String clientName) throws WrongInputException {
+    public void changeClientName(int id, String clientName) throws WrongInputException, IDException {
         if (!clientName.matches(CONTAINS_NO_NUMBERS_REGEXP)) {
             throw new WrongInputException(WRONG_INPUT_EXCEPTION_MESSAGE);
         }
@@ -111,7 +111,8 @@ public class Clinic {
                 if (c.getId() == id){
                     c.setClientName(clientName);
                     break;
-                }
+                } else
+                    throw new IDException(ID_EXCEPTION_MESSAGE);
             }
         }
     }
@@ -121,7 +122,7 @@ public class Clinic {
      * @param petName имя питомца
      * @throws WrongInputException, если имя питомца содержит цифры
      */
-    public void changePetName(int id, String petName) throws WrongInputException {
+    public void changePetName(int id, String petName) throws WrongInputException, IDException {
         if (!petName.matches(CONTAINS_NO_NUMBERS_REGEXP)) {
             throw new WrongInputException(WRONG_INPUT_EXCEPTION_MESSAGE);
         }
@@ -130,7 +131,8 @@ public class Clinic {
                 if (c.getId() == id){
                     c.getPet().setName(petName);
                     break;
-                }
+                } else
+                    throw new IDException(ID_EXCEPTION_MESSAGE);
             }
         }
     }
@@ -138,11 +140,13 @@ public class Clinic {
      * Удаление клиента
      * @param id ID клиента
      */
-    public void removeClient(int id){
+    public void removeClient(int id) throws IDException {
         for (int i = 0; i < clients.size(); i++){
             if (clients.get(i).getId() == id){
                 clients.remove(i);
                 break;
+            } else {
+                throw new IDException(ID_EXCEPTION_MESSAGE);
             }
         }
     }
@@ -150,11 +154,13 @@ public class Clinic {
      * Удаление питомца
      * @param id ID килента
      */
-    public void removePet(int id){
+    public void removePet(int id) throws IDException {
         for (int i = 0; i < clients.size(); i++){
             if (clients.get(i).getId() == id){
                 clients.get(i).removePet();
                 break;
+            } else {
+                throw new IDException(ID_EXCEPTION_MESSAGE);
             }
         }
     }

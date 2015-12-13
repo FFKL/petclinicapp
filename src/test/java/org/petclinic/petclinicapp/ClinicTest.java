@@ -66,12 +66,12 @@ public class ClinicTest {
     }
 
     @Test(expected = WrongInputException.class)
-    public void testChangeClientNameEx() throws WrongInputException {
+    public void testChangeClientNameEx() throws WrongInputException, IDException {
         myClinic.changeClientName(2, "123Vasiliy");
     }
 
     @Test(expected = WrongInputException.class)
-    public void testChangePetName() throws WrongInputException {
+    public void testChangePetName() throws WrongInputException, IDException {
         myClinic.changePetName(3, "Pushok32");
     }
 }
