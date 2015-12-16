@@ -17,7 +17,7 @@ public class Clinic {
 
     private final List<Client> clients;
     /**
-     * Константа для регулярного выражения
+     * Регулярное выражение
      */
     final String CONTAINS_NO_NUMBERS_REGEXP = "\\D+";
     /**

@@ -1,5 +1,7 @@
 package org.petclinic.petclinicapp;
 
+import org.petclinic.petclinicapp.EmulationUsers.Administrator;
+import org.petclinic.petclinicapp.EmulationUsers.User;
 import org.petclinic.petclinicapp.Exceptions.IDException;
 import org.petclinic.petclinicapp.Exceptions.PetTypeException;
 import org.petclinic.petclinicapp.Exceptions.WrongInputException;
