@@ -20,6 +20,7 @@ public class Client {
         this.clientName = clientName;
         this.pet = pet;
     }
+
     /**
      * Получение питомца
      */
@@ -85,5 +86,18 @@ public class Client {
         }
         Client e = (Client) obj;
         return (this.getId() == e.getId() && this.getClientName() == e.getClientName() && this.getPet().equals(e.getPet()));
+    }
+
+    /**
+     * Переопределение метода hashCode();
+     * @return хеш-код
+     */
+    @Override
+    public int hashCode() {
+        int result = 5;
+        result = 31*result + this.clientName.hashCode();
+        result = 31*result + this.id;
+        result = 31*result + this.getPet().hashCode();
+        return result;
     }
 }

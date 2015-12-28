@@ -5,8 +5,6 @@ import org.petclinic.petclinicapp.EmulationUsers.User;
 import org.petclinic.petclinicapp.Exceptions.IDException;
 import org.petclinic.petclinicapp.Exceptions.PetTypeException;
 import org.petclinic.petclinicapp.Exceptions.WrongInputException;
-import org.petclinic.petclinicapp.Pets.Cat;
-import org.petclinic.petclinicapp.Pets.Pet;
 
 import java.io.IOException;
 
@@ -15,13 +13,25 @@ import java.io.IOException;
  */
 public class ClinicRunner {
 
+    public static void main(String[] args) throws IOException, WrongInputException, IDException, PetTypeException, InterruptedException {
+        Clinic myClinic = new Clinic();
+        User user1 = new User(myClinic);
+        User user2 = new User(myClinic);
+        User user3 = new User(myClinic);
+        Administrator admin1 = new Administrator(myClinic);
+        Administrator admin2 = new Administrator(myClinic);
+        Administrator admin3 = new Administrator(myClinic);
 
+        admin1.start();
+        admin2.start();
+        admin3.start();
+        user1.start();
+        user2.start();
+        user3.start();
+        Thread.sleep(5000);
+        myClinic.clientList();
 
-    public static void main(String[] args) throws IOException {
-        ClinicTerminal terminal = new ClinicTerminal();
-        Client c = new Client(22, "Ivan", new Cat("Hren"));
-        Client g = new Client(22, "Ivan", new Cat("Hren"));
-
+        final ClinicTerminal terminal = new ClinicTerminal();
         try {
             terminal.myClinic.addClient(1, "Vasiliy Pupkin", "Dog", "Racks");
             terminal.myClinic.addClient(2, "Julia Korosteleva", "Cat", "Pushok");

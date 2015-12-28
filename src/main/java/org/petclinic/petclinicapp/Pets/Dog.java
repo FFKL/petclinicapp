@@ -37,4 +37,12 @@ public class Dog implements Pet {
         Pet e = (Pet) obj;
         return (this.getName() == e.getName() && this.getClass() == e.getClass());
     }
+
+    @Override
+    public int hashCode() {
+        int result = 5;
+        result = 31*result + this.name.hashCode();
+        result = 31*result + this.getClass().hashCode();
+        return result;
+    }
 }

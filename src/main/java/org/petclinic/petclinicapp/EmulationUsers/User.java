@@ -4,34 +4,42 @@ import org.petclinic.petclinicapp.Clinic;
 import org.petclinic.petclinicapp.Exceptions.IDException;
 import org.petclinic.petclinicapp.Exceptions.WrongInputException;
 
+/**
+ * Класс Пользователь изменяет имя питомца
+ */
 public class User extends Thread {
-    private static RandomParameters random = new RandomParameters();
-    private static Clinic myClinic;
+    private RandomParameters random = new RandomParameters();
+    private Clinic myClinic;
 
+    /**
+     * Конструктор
+     * @param myClinic клиника
+     */
     public User(Clinic myClinic) {
         this.myClinic = myClinic;
     }
 
-    public static synchronized void searchUser() {
+    /**
+     * Изменение имени питомца
+     */
+    public void editPetName() {
         try {
-            myClinic.findByClientName(random.getClientName());
+            int randomNum = random.getRandomNum();
+            String petName = random.getPetName();
+            myClinic.changePetName(randomNum, petName);
+            System.out.println("Изменено Id: " + randomNum  + " Name: " + petName);
         } catch (WrongInputException e) {
-            e.getMessage();
-        }
-    }
-
-    public static synchronized void editPetName() {
-        try {
-            myClinic.changePetName(random.getRandomNum(), random.getPetName());
-        } catch (WrongInputException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } catch (IDException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
     }
 
+    /**
+     * Переопределение метода run()
+     */
     @Override
     public void run() {
-        super.run();
+        editPetName();
     }
 }

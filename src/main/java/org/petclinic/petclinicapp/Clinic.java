@@ -23,7 +23,7 @@ public class Clinic {
     /**
      * Константы для сообщений в исключениях
      */
-    final String ID_EXCEPTION_MESSAGE = "Введенный ID существует. Введите другой.";
+    final String ID_EXCEPTION_MESSAGE = "Введенный ID не существует. Введите другой.";
     final String WRONG_INPUT_EXCEPTION_MESSAGE = "Ввод имени содержит цифры. Введите корректное имя (Пример: Василий)";
     final String PET_TYPE_EXCEPTION_MESSAGE = "Такого питомца не существует.";
     /**
@@ -42,7 +42,7 @@ public class Clinic {
      * @throws IDException, если существует клиент с введенным ID
      * @throws PetTypeException, если введет несуществующий тип питомца
      */
-    public void addClient(final int id, String clientName, String petType, String petName) throws WrongInputException, IDException, PetTypeException {
+    public synchronized void addClient(final int id, String clientName, String petType, String petName) throws WrongInputException, IDException, PetTypeException {
         Pet pet = null;
         for (Client c : this.clients) {
             if (id == c.getId())
@@ -131,33 +131,45 @@ public class Clinic {
      * @throws IDException, если существует клиент с введенным ID
      */
     public void changePetName(int id, String petName) throws WrongInputException, IDException {
+        boolean comparisonId = false;
         if (!petName.matches(CONTAINS_NO_NUMBERS_REGEXP)) {
             throw new WrongInputException(WRONG_INPUT_EXCEPTION_MESSAGE);
         }
         else {
             for (Client c : clients) {
-                if (c.getId() == id){
+                if (c.getId() == id) {
+                    comparisonId = true;
                     c.getPet().setName(petName);
                     break;
-                } else
-                    throw new IDException(ID_EXCEPTION_MESSAGE);
+                }
             }
         }
+        if (!comparisonId)
+            throw new IDException(ID_EXCEPTION_MESSAGE);
     }
     /**
      * Удаление клиента
      * @param id ID клиента
      * @throws IDException, если существует клиент с введенным ID
      */
-    public void removeClient(int id) throws IDException {
-        for (int i = 0; i < clients.size(); i++){
-            if (clients.get(i).getId() == id){
-                clients.remove(i);
-                break;
-            } else {
-                throw new IDException(ID_EXCEPTION_MESSAGE);
+    public synchronized void removeClient(int id) throws IDException {
+        if (clients == null)  {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
+        boolean comparisonId = false;
+        for (int i = 0; i < clients.size(); i++){
+            if (clients.get(i).getId() == id){
+                comparisonId = true;
+                clients.remove(i);
+                break;
+            }
+        }
+        if (!comparisonId)
+            throw new IDException(ID_EXCEPTION_MESSAGE);
     }
     /**
      * Удаление питомца
@@ -188,5 +200,11 @@ public class Clinic {
                 petName = "; Имя питомца: " +  c.getPet().getName();
             System.out.println("ID клиента: " + c.getId() + "; Имя клиента: " + c.getClientName() + petName);
         }
+    }
+
+    public boolean isEmpty() {
+        if (clients == null)
+            return true;
+        return false;
     }
 }
